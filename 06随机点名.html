@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div id="app"> -->
+        <!-- <h1>{{studentName}}</h1> -->
+        <!-- <button @click="getName">点名</button> -->
+    <!-- </div> -->
+    <script src="vue.js"></script>
+    <script>
+      // new Vue({
+      //     el:"#app",
+      //     data:{
+      //         nameList:["小明","小亮","小红"],
+      //         studentName:'同学名字'
+      //     },
+      //     methods:{
+      //         getName(){
+      //             this.studentName = this.nameList[this.getRandom()];
+      //         },
+      //         getRandom(){
+      //             return Math.floor(Math.random() * this.nameList.length)
+      //         }
+      //     }
+      // })
+      
+    </script>
+    <div id=app>
+        <h1>{{name}}买单！！</h1>
+        <input type="button" value="今晚全场所有消费由" @click="chouqu">
+    </div>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                list:['赵公子','还是赵公子','也是赵公子'],
+                name:'幸运观众'
+            },
+            methods:{
+                chouqu(){
+                    this.name=this.list[this.FF()]
+                },
+                FF(){
+                    return Math.floor( Math.random()* this.list.length)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+       <span v-cloak>{{shi}}：</span><span v-cloak>{{fen}}：</span><span v-cloak>{{miao}}</span>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+       var vm=new Vue({
+        el:'#app',
+        data:{
+            shi:'',
+            fen:'',
+            miao:''
+        },
+        created(){
+            setInterval(()=>{
+                var date=new Date();
+                var shi=date.getHours()
+                var fen=date.getMinutes()
+                var miao=date.getSeconds()
+                this.shi=shi
+                this.fen=fen
+                this.miao=miao
+            },100)
+
+        }
+
+       })
+       
+
+    </script>
+</body>
+
+</html>
