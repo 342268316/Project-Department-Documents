@@ -45,10 +45,7 @@
             },
             methods:{
                 chouqu(){
-                    this.name=this.list[this.FF()]
-                },
-                FF(){
-                    return Math.floor( Math.random()* this.list.length)
+                    this.name=this.list[Math.floor( Math.random()* this.list.length)]
                 }
             }
         })

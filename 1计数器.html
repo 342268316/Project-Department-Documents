@@ -9,34 +9,34 @@
     <script src="vue.js"></script>
     <style>
         input{
-            width: 80px;
+            width: 50px;
         }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <input type="button" name="" id="" @click="jia" value="＋">
-        <!-- <input type="text" name="" id="" v-model="msg"> -->
-        <span>{{msg}}</span>
+        <input type="button" name="" id="" @click="jia" value="+">
+        <input type="text" name="" id="" v-model="msg">
         <input type="button" name="" id="" @click="jian" value="-">
+
+
     </div>
     <script>
-        var vm=new Vue({
-            el:'#app',
-            data:{
-                msg:99
+        new Vue({
+            el: '#app',
+            data: {
+                msg: 0
             },
-            methods:{
-                jia(){
+            methods: {
+                jia() {
                     this.msg++
                 },
-                jian(){
+                jian() {
                     this.msg--
-
                 }
             }
-        });
+        })
     </script>
 </body>
 
