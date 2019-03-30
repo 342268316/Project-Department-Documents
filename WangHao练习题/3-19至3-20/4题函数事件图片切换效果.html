@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li{
+            width: 40px;
+            height: 40px;
+            border: 1px solid rebeccapurple;
+            list-style: none;
+            float: left;
+        }
+        img{
+            width: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="images/1.jpg" alt="" id='img'>
+    <ul>
+        <li onclick="fun1()">1</li>
+        <li onclick="fun2()">2</li>
+        <li onclick="fun3()">3</li>
+        <li onclick="fun4()">4</li>
+        <li onclick="fun5()">5</li>
+    </ul>
+    <script>
+        function fun1(){
+            document.getElementById('img').src='images/2.jpg'
+        }
+        function fun2(){
+            document.getElementById('img').src='images/3.jpg'
+        }
+        function fun3(){
+            document.getElementById('img').src='images/4.jpg'
+        }
+        function fun4(){
+            document.getElementById('img').src='images/5.jpg'
+        }
+        function fun5(){
+            document.getElementById('img').src='images/1.jpg'
+        }
+    </script>
+</body>
+
+</html>

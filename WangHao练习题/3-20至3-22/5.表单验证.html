@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery.js"></script>
+
+</head>
+<body>
+        <input id='emll'>
+        <button>提交</button>
+    <script>
+
+var reg =  /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+$("button").click(function() {
+    if (reg.test(emll.value))
+        alert("邮箱填写成功")
+    else
+        alert("邮箱填写失败")
+
+})   
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<style>
+    img{
+        width: 500px;
+        border: 1px solid rebeccapurple;
+        position: absolute;
+        top: 300px;
+    }
+</style>
+<body>
+    <div id="app">
+        <img :src="url" alt="">
+        <ul>
+            <li @click='qh1'>1</li>
+            <li @click='qh2'>2</li>
+            <li @click='qh3'>3</li>
+            <li @click='qh4'>4</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                url:'images/1.jpg'
+            },
+            methods:{
+                qh1(){
+                    this.url='images/2.jpg'
+                },
+                qh2(){
+                    this.url='images/3.jpg'
+                },
+                qh3(){
+                    this.url='images/4.jpg'
+                },
+                qh4(){
+                    this.url='images/1.jpg'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

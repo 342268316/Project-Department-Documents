@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+            <p>当前时间{{tian}}天{{shi}}:{{fen}}:{{miao}}</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                miao:'',
+                fen:'',
+                shi:'',
+                tian:''
+            },
+            created(){
+                setInterval(()=>{
+                    var targetDate=new Date('2019-4-5').getTime()
+                    var date=new Date().getTime()
+                    var sj=targetDate-date;
+                    this.miao=Math.floor(sj/1000%60)
+                    this.fen=Math.floor(sj/1000/60%60)
+                    this.shi=Math.floor(sj/1000/60/60%24)
+                    this.tian=Math.floor(sj/1000/60/60/24%365)
+                })
+            }
+        });
+    </script>
+</body>
+
+</html>
