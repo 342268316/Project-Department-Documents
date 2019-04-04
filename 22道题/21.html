@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <p>{{msg}}</p>
+        <input type="button" value="点名啦 同学们" @click="btn">
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                msg:"随机点名",
+            },
+            methods:{
+                btn(){
+                var list=["小明","小红","小周","小东"]
+
+                    this.msg = list[Math.floor(Math.random()*list.length)];
+                }
+                      
+            }
+        })
+    </script>
+</body>
+</html>

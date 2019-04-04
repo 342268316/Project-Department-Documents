@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <input type="text" name="" id="" value="" v-model="llld">
+        <input type="button" name="" id="" value="添加" @click='up(i)'>
+        <ul>
+            <li v-for='item,i in list'>{{item}} <span @click='del(i)' style="color:rebeccapurple">删除</span></li>
+        </ul>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                llld:'',
+                list:[
+                    '王者荣耀',
+                    '英雄联盟',
+                    '穿越火线',
+                    '魔兽争霸',
+                    'DOTA',
+                    '魔兽世界',
+                    '剑网3',
+                    '御剑江湖'
+                ]
+            },
+            methods:{
+                up(i){
+                    this.list.push(this.llld)
+                },
+                del(i){
+                    if(confirm('删不删？')){
+                        this.list.splice(i,1)
+                }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

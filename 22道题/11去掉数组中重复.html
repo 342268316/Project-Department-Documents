@@ -12,7 +12,16 @@
 <body>
     <script>
         var arr=[5,10,6,11,18,22,11,31,6,52,19]
-        
+        var arr2=[]
+        var obj={}
+        for(var i=0;i<arr.length;i++){
+            if(!obj[arr[i]]){
+                obj[arr[i]]='sdsd'
+                arr2.push(arr[i])
+
+            }
+        }
+        document.write(arr2)
         </script>
 </body>
 </html>
