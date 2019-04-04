@@ -1,53 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="vue.js"></script>
-</head>
-<style>
+    <style>
     img{
-        width: 500px;
-        border: 1px solid rebeccapurple;
-        position: absolute;
-        top: 300px;
+        width: 300px;
     }
-</style>
+    </style>
+</head>
 <body>
-    <div id="app">
+    <div id='app'>
         <img :src="url" alt="">
         <ul>
-            <li @click='qh1'>1</li>
-            <li @click='qh2'>2</li>
-            <li @click='qh3'>3</li>
-            <li @click='qh4'>4</li>
+            <li v-for="item,index in list" @click='show(item.urll)'>{{item.id}}</li>
         </ul>
     </div>
     <script>
-        var vm = new Vue({
-            el: '#app',
-            data: {
-                url:'images/1.jpg'
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                url:'images/1.jpg',
+                list:[
+                    {id:'1',urll:'images/5.jpg'},
+                    {id:'2',urll:'images/3.jpg'},
+                    {id:'3',urll:'images/4.jpg'}
+                ]
             },
             methods:{
-                qh1(){
-                    this.url='images/2.jpg'
-                },
-                qh2(){
-                    this.url='images/3.jpg'
-                },
-                qh3(){
-                    this.url='images/4.jpg'
-                },
-                qh4(){
-                    this.url='images/1.jpg'
+                show(url){
+                    this.url=url
                 }
             }
-        });
+        })
     </script>
 </body>
-
 </html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var getdate=new Date("2019-5-1").getTime()
+        var date=new Date().getTime()
+        var shijian=getdate-date
+        console.log(shijian)
+        var miao=Math.floor(shijian/1000%60)
+        var fen=Math.floor(shijian/1000/60%60)
+        var day = Math.floor(shijian/1000/60/60/24)
+        var shi=Math.floor(shijian/1000/60/60%24)
+
+        document.write('距离51 还有'+day+':'+shi+':'+fen+':'+miao);
+        </script>
+</body>
+</html>

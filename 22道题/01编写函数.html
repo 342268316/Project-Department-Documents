@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>1-m之间的和</title>
 </head>
-
 <body>
     <script>
-        var date=new Date()
-        var shi=date.getHours()
-        var fen=date.getMinutes()
-        var miao=date.getSeconds()
+        var res=0
+        function fun(m){
+            for(let i=1;i<=m;i++){
+                res+=i
+            }
+        }
+      fun(5)
+        document.write(res);
     </script>
 </body>
-
 </html>

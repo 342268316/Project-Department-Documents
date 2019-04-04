@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+   <div id="app">
+       <input type="text" v-model="text">
+       <input type="button" value="提交" @click="show">
+        <ul>
+                <li v-for="(item,i) in list">
+                    {{item}}
+                    <span @click="del(i)">删除</span>
+                </li>
+            </ul>
+   </div>
+
+   <script>
+       let vm = new Vue({
+           el:"#app",
+           data:{
+               text:"",
+               i:'',
+               list:[
+                   "苹果",
+                    "香蕉",
+                    "鸭梨"
+               ]
+           },
+           methods:{
+               show(){
+                   this.list.push(this.text)
+               },
+               del(i){
+                  if(confirm("是否要删除")){
+                      this.list.splice(i,1)
+                  }
+            
+           },
+        }
+       })
+   </script>
+</body>
+</html>
