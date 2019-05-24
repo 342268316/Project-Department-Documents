@@ -136,18 +136,83 @@ mysql> select *from user;
 ## --外键约束
  -- 涉及到两个表：父表，子表
  -- 或者说是：主表，副表。
-
+-- foreign key(class_id) references classes(id) 
 
  -- 班级表
  create table classes(
-     id int primay key,
-     name valchar(20)
+     id int primary key,
+     name varchar(20)
  );
+
 
  -- 学生表
  create table students(
-    id int primay key,
-    name valchar(20),
+    id int primary key,
+    name varchar(20),
     class_id int,
     foreign key(class_id) references classes(id)
  );
+
+
+insert into classes values(1,"一班");
+insert into classes values(2,"二班");
+insert into classes values(3,"三班");
+insert into classes values(4,"四班");
+
+insert into students values(1001,"张三",1);
+insert into students values(1002,"张三",2);
+insert into students values(1003,"张三",3);
+insert into students values(1004,"张三",4);
+insert into students values(1005,"张三",5); （错误【1】）
+
+
+
+1.主表 classes 中没有的数据，在副表中，是 不可以 使用的。
+2.主表中的记录被副表引用，是 不可以 删除的。
+
+# 数据库的三大设计范式。
+### 1.第一范式
+1nf
+数据表中的所有字段都是不可分割原子值？
+
+先创建一个叫 student2的表
+create table student2(
+    id int primary key,
+    name varchar(20),
+    address varchar(30)
+);
+
+往student2里面插入数据
+insert into student2 values(1,'张三','山海关100');
+insert into student2 values(2,'张三','山海关200');
+insert into student2 values(3,'张三','山海关300');
+
+          mysql> select * from student2;
+          +----+------+-----------+
+          | id | name | address   |
+          +----+------+-----------+
+          |  1 | 张三 | 山海关100 |
+          |  2 | 张三 | 山海关200 |
+          |  3 | 张三 | 山海关300 |
+          +----+------+-----------+
+          3 rows in set (0.00 sec)
+
+像这种字段值可以继续拆分的，就不满足第一范式 （比如拆分成 山海关，100）
+
+
+再创建一个表
+create table student3(
+    id int primary key,
+    name varchar(20),
+    cuntry varchar(30),
+    privence varchar(30),
+    city varchar(30),
+    details varchar(30),
+);
+ ![avatar](img/12.png)
+
+### 2.第二范式
+首先要满足第一范式，除开主键以外的其他列必须完全依赖于主键，如果出现联合主键，就可能出现其他列依赖于某个主键，所以就不满足。
+### 3.第三范式
+首先必须要满足第二范式，除开主键列的其他列不能有传递依赖关系。。
+
