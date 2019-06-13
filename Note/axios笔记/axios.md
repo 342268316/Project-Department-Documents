@@ -1,218 +1,176 @@
-#### -- 创建数据库
-create database (数据库名称)
-
-#### -- 显示数据库
-show databases (显示全部)
-show databases  like(显示部分)
-
-#### -- 选择数据库
-use (数据库)
-#### -- 删除数据库
-drop database 数据库名字
-
-### -- 数据表操作-------------------------------------------------------------------------------------------
- #### -- 创建数据表
-#### -- 普通创建表
-基本语法：create table 表名（字段名 字段类型 [字段属性],字段名 字段类型 [字段属性]...)
-[表选项]
-
-两种方式可以将表挂入制定的数据库下
-1.基本语法：create table 数据库名字.表名（字段名 字段类型 [字段属性]）
-2.先进入库再写
-
-#### -- 查看表所有表
-show tables
-show tables  like(显示部分)
-
-#### -- 查看表结构
-desc 表名
-
-字段名字   字段类型   值可以为控？ 索引值 默认值   额外属性
-+-------+-------------+------+-----+---------+-------+
-| Field | Type        | Null | Key | Default | Extra |
-+-------+-------------+------+-----+---------+-------+
-| name  | varchar(10) | YES  |     | NULL    |       |
-+-------+-------------+------+-----+---------+-------+
+首先在vue中下载axios插件，然后在要使用异步请求的页面中写入axios
+<script>
+import axios from "axios";
 
 
-#### -- 查看表创建语句
-show create table 表名
-
-#### -- 修改表选项
-alter table 表明 charset gbk
-
-（如果数据库已经有很多数据了，不要轻易修改表选项）
-
-#### -- 修改表名称
- rename table 当前名字 to 要修改成的名字
-
-#### --  删除表
-drop table 表名称
-#### --  表添加新字段----------------------------------------------
-alter table 表名称 add 字段名称 int （默认后面）
-alter table 表名称 add 字段名称 int first（放在最前面）
-
-#### -- 修改字段名
-alter table 表名称 change 字段名称 新字段名称 字段属性
-
-#### -- 修改字段类型
-alter table 表名称 modify 字段名称  字段属性;
-
-#### -- 删除字段
-alter table 表名称 drop 字段名称
+2.在页面上面写前端代码
+//<form @submit="insertData">
+//       <input type="text" v-model="name">
+//       <button>添加</button>
+//     </form>
+//     <ul>
+//       <li v-for="item,index in clazzList">
+//         {{item.name}}
+//         <span @click="del(item.id)">删除</span>
+//       </li>
+//     </ul>
 
 
+3.写增删查功能
 
-### -- 数据操作-----------------------------------------------------------------------------------
-#### -- 插入
-insert into 表名字 (id,name) values(1,'lilei');
+export default {
+  name: "home",
 
-#### -- 查询
- select * from 表名字
- ![avatar](img/1.png)
- 
- #### --删除数据
- ![avatar](img/2.png)
+  data() {
+    return {
+      clazzList: [],
+      name: ""
+    };
+  },
+  methods: {
+    getList() {
+      axios
+        .get("http://127.0.0.1:7001/hell")
+        .then(res => {
+          console.log(res);
+          this.clazzList = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    del(id) {
+      axios
+        .delete("http://127.0.0.1:7001/delhell/" + id)
+        .then(response => {
+          console.log(response);
+          // this.clazzList = res.data;
+          // this.getCollect();
+          // this.ctx.redirect("/hell");
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
 
- #### --更新数据
- ![avatar](img/3.png)
+    insertData() {
+      axios
+        .post("http://127.0.0.1:7001/addhell", {
+          name: this.name
+        })
+        .then(res => {
+          this.clazzList = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  created() {
+    this.getList();
+  },
+  components: { menulist }
+};
+/script
 
+4.在egg项目里面跨域
 
+https://www.jianshu.com/p/0ddd84f4063c
 
-## <u>主外键</u>
-我们在创建数据表的时候，往往要约束某些字段。
- ### --主键约束--------------------------------------------------
-    --它能够唯一确定一张表中的一条记录，也就是我们通过给某个字段添加约束，就可以使得该字段不重复且不为空。(primary key 是关键字)
-1.
-create table user(
-    id int primary key,
-    name varchar(20)
-);
-
-2.
-insert into user values (1,"张三");
-【ok】
-insert into user values (1,"张三");
-【error】
-
-3.
-insert into user values (2,"张三");
-【ok】
-mysql> select *from user;
-+----+------+
-| id | name |
-+----+------+
-|  1 | 张三 |
-|  2 | 张三 |
-+----+------+
-2 rows in set (0.02 sec)
-#### -- 联合主键约束
- ![avatar](img/4.png)
-
- #### --自增约束
- ![avatar](img/6.png)
-
-#### -- 创建表的时候忘记主键约束了怎么办？
- ![avatar](img/5.png)
-
- #### --怎么删除约束
- ![avatar](img/7.png)
-
- ### --唯一约束
- 约束修饰的字段的值不可以重复.(相比于主键约束，它可以添加多个而且值可以为空)
-
- #### 如何添加唯一约束
- ![avatar](img/8.png)
- #### 如何删除唯一约束
- ![avatar](img/9.png)
- ### --非空约束
- 字段不能为空
- ![avatar](img/10.png)
-
-### --默认约束
-就是当我们插入字段值的时候，如果没有传值，就会使用默认值
- ![avatar](img/11.png)
-
-## --外键约束
- -- 涉及到两个表：父表，子表
- -- 或者说是：主表，副表。
--- foreign key(class_id) references classes(id) 
-
- -- 班级表
- create table classes(
-     id int primary key,
-     name varchar(20)
- );
+5.在egg项目里连接数据库
+https://blog.csdn.net/weixin_34351321/article/details/87072545
 
 
- -- 学生表
- create table students(
-    id int primary key,
-    name varchar(20),
-    class_id int,
-    foreign key(class_id) references classes(id)
- );
+6.controller的home.js
+'use strict';
+
+const Controller = require('egg').Controller;
+
+class HomeController extends Controller {
+  async index() {
+    await this.ctx.render("login.html")
+  }
+  async hell() {
+    const clazzList = await this.app.model.Clazz.findAll();//查询班级列表
+    this.ctx.body = clazzList
+  }
+  async addhell() {
+      const namee = this.ctx.request.body.name
+      const clazz = {
+          name:namee
+      }
+      await this.app.model.Clazz.create(clazz);
+      this.ctx.body = clazzList;
+
+  }
+  async delhell() {
+    // const id = this.ctx.request.body.id;
+    // // let id = this.ctx.params.id;
+    // const clazz = await this.app.model.Clazz.findOne({
+    //     where: {
+    //         id: id
+    //     }
+    // });
+    // clazz.destroy();
+
+    // // clazzList.splice(id,1); //删除数据
+    // this.ctx.body = clazzList;
 
 
-insert into classes values(1,"一班");
-insert into classes values(2,"二班");
-insert into classes values(3,"三班");
-insert into classes values(4,"四班");
-
-insert into students values(1001,"张三",1);
-insert into students values(1002,"张三",2);
-insert into students values(1003,"张三",3);
-insert into students values(1004,"张三",4);
-insert into students values(1005,"张三",5); （错误【1】）
+    // // this.ctx.redirect("/clazz")
 
 
+    // const id = this.ctx.request.body.clazz_id;
+    // const {ctx} = this;
+        const id = this.ctx.params.id;
+    const clazzs = await this.app.model.Clazz.findOne({
+        where: {
+            id: id
+        }
+    });
+    clazzs.destroy(id);
 
-1.主表 classes 中没有的数据，在副表中，是 不可以 使用的。
-2.主表中的记录被副表引用，是 不可以 删除的。
+    //     ctx.body = await ctx.service.clazz.destroy(id)
 
-# 数据库的三大设计范式。
-### 1.第一范式
-1nf
-数据表中的所有字段都是不可分割原子值？
-
-先创建一个叫 student2的表
-create table student2(
-    id int primary key,
-    name varchar(20),
-    address varchar(30)
-);
-
-往student2里面插入数据
-insert into student2 values(1,'张三','山海关100');
-insert into student2 values(2,'张三','山海关200');
-insert into student2 values(3,'张三','山海关300');
-
-          mysql> select * from student2;
-          +----+------+-----------+
-          | id | name | address   |
-          +----+------+-----------+
-          |  1 | 张三 | 山海关100 |
-          |  2 | 张三 | 山海关200 |
-          |  3 | 张三 | 山海关300 |
-          +----+------+-----------+
-          3 rows in set (0.00 sec)
-
-像这种字段值可以继续拆分的，就不满足第一范式 （比如拆分成 山海关，100）
+}
+}
 
 
-再创建一个表
-create table student3(
-    id int primary key,
-    name varchar(20),
-    cuntry varchar(30),
-    privence varchar(30),
-    city varchar(30),
-    details varchar(30),
-);
- ![avatar](img/12.png)
+module.exports = HomeController;
 
-### 2.第二范式
-首先要满足第一范式，除开主键以外的其他列必须完全依赖于主键，如果出现联合主键，就可能出现其他列依赖于某个主键，所以就不满足。
-### 3.第三范式
-首先必须要满足第二范式，除开主键列的其他列不能有传递依赖关系。。
 
+6.model的clazz.js
+
+
+module.exports = app => {
+    const {
+        STRING
+    } = app.Sequelize;
+
+    const Clazz = app.model.define('clazz', {  //sequelize会自动创建主键
+        name: STRING,
+    })
+
+    return Clazz;
+}
+
+7.model的students.js
+
+module.exports = app => {
+    const {
+        STRING
+    } = app.Sequelize;
+
+    const Students = app.model.define('students', {
+        name: STRING,
+    })
+
+    Students.associate = function () {
+        app.model.Students.belongsTo(app.model.Clazz, {  //设置外键
+            foreignKey: 'clazz_id',
+            as: 'clazz'
+        })
+    }
+
+    return Students;
+}
